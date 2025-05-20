@@ -27,25 +27,18 @@
     {
       "type": "wokwi-pushbutton",
       "id": "btn1",
-      "top": 382,
-      "left": -27.2,
+      "top": 180.4,
+      "left": -17.6,
       "rotate": 90,
       "attrs": { "color": "green", "xray": "1", "label": "Sensor de Fósforo" }
     },
     {
       "type": "wokwi-pushbutton",
       "id": "btn2",
-      "top": 382,
+      "top": 266.8,
       "left": 49.6,
       "rotate": 90,
       "attrs": { "color": "blue", "xray": "1", "label": "Sensor de Potássio" }
-    },
-    {
-      "type": "wokwi-mpu6050",
-      "id": "imu1",
-      "top": 263.02,
-      "left": -45.68,
-      "attrs": { "label": "Sensor de pH" }
     },
     {
       "type": "wokwi-dht22",
@@ -59,45 +52,56 @@
       "id": "relay1",
       "top": 192.2,
       "left": 412.8,
-      "attrs": { "label": "Bomba de irrigação" }
+      "attrs": {}
     },
     {
       "type": "wokwi-led",
       "id": "led1",
       "top": 159.6,
       "left": 551,
-      "attrs": { "color": "green", "label": "" }
+      "attrs": { "color": "green", "label": "Bomba Ligada" }
+    },
+    {
+      "type": "wokwi-photoresistor-sensor",
+      "id": "ldr1",
+      "top": 224,
+      "left": -268,
+      "attrs": {}
     }
   ],
   "connections": [
-    [ "esp:TX", "$serialMonitor:RX", "", [] ],
-    [ "esp:RX", "$serialMonitor:TX", "", [] ],
-    [ "esp:3V3", "bb1:17b.f", "red", [ "h-19.05", "v124.8" ] ],
-    [ "esp:GND.2", "bb1:1b.f", "black", [ "v-48", "h-326.4", "v172.8" ] ],
-    [ "esp:CLK", "bb1:3b.f", "green", [ "h19.2", "v-230.4", "h-307.2" ] ],
-    [ "esp:34", "bb1:5b.f", "violet", [ "h0" ] ],
-    [ "esp:35", "bb1:7b.f", "purple", [ "h0" ] ],
-    [ "esp:19", "bb1:9b.f", "cyan", [ "h0" ] ],
-    [ "esp:18", "bb1:14b.f", "blue", [ "h0" ] ],
-    [ "btn1:2.l", "bb1:1b.j", "black", [ "v0", "h-57.8" ] ],
-    [ "btn1:1.l", "bb1:9b.j", "green", [ "v0" ] ],
-    [ "btn2:2.l", "bb1:1b.i", "black", [ "v-9.6", "h-115.4" ] ],
-    [ "btn2:1.l", "bb1:14b.j", "green", [ "v0" ] ],
-    [ "dht1:GND", "bb1:1b.h", "black", [ "v9.6", "h-240", "v-201.6" ] ],
-    [ "imu1:GND", "bb1:1b.g", "black", [ "v-19.2", "h-86.32", "v-124.8" ] ],
-    [ "dht1:VCC", "bb1:17b.i", "red", [ "v0", "h-19.2", "v-182.4" ] ],
-    [ "imu1:VCC", "bb1:17b.j", "red", [ "v0", "h86.48" ] ],
-    [ "dht1:SDA", "bb1:7b.j", "purple", [ "v19.2", "h-211.1", "v-163.2", "h67.2" ] ],
-    [ "bb1:3b.j", "imu1:SCL", "green", [ "v86.4", "h28.8" ] ],
-    [ "imu1:SDA", "bb1:5b.j", "magenta", [ "v0" ] ],
-    [ "esp:5V", "bb2:1b.f", "red", [ "h0.15", "v19.2", "h182.4", "v-76.8" ] ],
-    [ "esp:GND.3", "bb2:2b.f", "black", [ "h96", "v48", "h38.4" ] ],
-    [ "relay1:VCC", "bb2:1b.j", "red", [ "h0" ] ],
-    [ "relay1:GND", "bb2:2b.j", "black", [ "h0" ] ],
-    [ "relay1:IN", "bb2:3b.j", "green", [ "h0" ] ],
-    [ "esp:5", "bb2:3b.f", "green", [ "h0" ] ],
-    [ "led1:C", "relay1:COM", "green", [ "v0" ] ],
-    [ "led1:A", "relay1:NO", "green", [ "v0" ] ]
+    ["esp:TX", "$serialMonitor:RX", "", []],
+    ["esp:RX", "$serialMonitor:TX", "", []],
+    ["esp:3V3", "bb1:17b.f", "red", ["h-19.05", "v124.8"]],
+    ["esp:GND.2", "bb1:1b.f", "black", ["v-48", "h-326.4", "v172.8"]],
+    ["esp:CLK", "bb1:3b.f", "green", ["h19.2", "v-230.4", "h-307.2"]],
+    ["esp:34", "bb1:5b.f", "violet", ["h0"]],
+    ["esp:35", "bb1:7b.f", "purple", ["h0"]],
+    ["esp:19", "bb1:9b.f", "cyan", ["h0"]],
+    ["esp:18", "bb1:14b.f", "blue", ["h0"]],
+    ["btn1:2.l", "bb1:1b.j", "black", ["v0", "h-57.8"]],
+    ["btn1:1.l", "bb1:9b.j", "green", ["v0"]],
+    ["btn2:2.l", "bb1:1b.i", "black", ["v-9.6", "h-134.6", "v-230.4"]],
+    ["btn2:1.l", "bb1:14b.j", "green", ["v0"]],
+    ["dht1:GND", "bb1:1b.h", "black", ["v28.8", "h-240", "v-220.8"]],
+    ["dht1:VCC", "bb1:17b.i", "red", ["v0", "h-19.2", "v-182.4"]],
+    [
+      "dht1:SDA",
+      "bb1:7b.j",
+      "purple",
+      ["v19.2", "h-201.5", "v-172.8", "h57.6"]
+    ],
+    ["esp:5V", "bb2:1b.f", "red", ["h0.15", "v19.2", "h182.4", "v-76.8"]],
+    ["esp:GND.3", "bb2:2b.f", "black", ["h96", "v48", "h38.4"]],
+    ["relay1:VCC", "bb2:1b.j", "red", ["h0"]],
+    ["relay1:GND", "bb2:2b.j", "black", ["h0"]],
+    ["relay1:IN", "bb2:3b.j", "green", ["h0"]],
+    ["esp:5", "bb2:3b.f", "green", ["h0"]],
+    ["led1:C", "relay1:COM", "green", ["v0"]],
+    ["led1:A", "relay1:NO", "green", ["v0"]],
+    ["ldr1:GND", "bb1:1b.g", "black", ["h28.8", "v-38.8"]],
+    ["ldr1:VCC", "bb1:17b.j", "red", ["h211.2", "v-86.4"]],
+    ["ldr1:AO", "bb1:5b.j", "violet", ["h67.2", "v-106.3", "h28.8"]]
   ],
   "dependencies": {}
 }
