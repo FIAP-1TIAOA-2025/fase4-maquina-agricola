@@ -24,8 +24,8 @@ O programa realiza a leitura dos seguintes dispositivos conectados ao ESP32:
 
 - **Botão Sensor de Fósforo** (GPIO 19)
 - **Botão Sensor de Potássio** (GPIO 18)
-- **Sensor Analógico 1** (GPIO 32)
-- **Sensor Analógico 2** (GPIO 33)
+- **Sensor Analógico 1** (GPIO 34)
+- **Sensor Analógico 2** (GPIO 15)
 - **Relé** (GPIO 5), que representa a saída do sistema
 
 ### Lógica de Controle
@@ -50,8 +50,8 @@ Fósforo: 0 | Potássio: 1 | Sensor1: 1800 | Sensor2: 2500 | Relé: LIGADO
 ```
 [Botão Fósforo] --- GPIO 19
 [Botão Potássio] --- GPIO 18
-[Sensor Analógico 1] --- GPIO 32
-[Sensor Analógico 2] --- GPIO 33
+[Sensor Analógico 1] --- GPIO 34
+[Sensor Analógico 2] --- GPIO 15
 [Relé (Saída)] --- GPIO 5
 ```
 
@@ -65,4 +65,4 @@ Fósforo: 0 | Potássio: 1 | Sensor1: 1800 | Sensor2: 2500 | Relé: LIGADO
 ---
 
 **Observação:**  
-O código possui referências a sensores digitais (DHT22 e MPU6050), mas para o funcionamento básico com dois botões, dois sensores analógicos e um relé, apenas as leituras dos botões e sensores analógicos são essenciais.
+Os valores aceitáveis para o LDR representando o sensor de pH do solo estão entre 30 e 95. O valor da umidade deve ser menor de 40.0. Os botões devem ser pressionados por cerca de 1s para ligarem ou desligarem.
