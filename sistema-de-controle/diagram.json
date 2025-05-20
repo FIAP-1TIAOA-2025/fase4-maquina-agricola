@@ -3,9 +3,27 @@
   "author": "Anonymous maker",
   "editor": "wokwi",
   "parts": [
-    { "type": "wokwi-breadboard-mini", "id": "bb1", "top": 37, "left": -50.4, "attrs": {} },
-    { "type": "wokwi-breadboard-mini", "id": "bb2", "top": 27.4, "left": 362.4, "attrs": {} },
-    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": -38.4, "left": 158.44, "attrs": {} },
+    {
+      "type": "wokwi-breadboard-mini",
+      "id": "bb1",
+      "top": 37,
+      "left": -50.4,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-breadboard-mini",
+      "id": "bb2",
+      "top": 27.4,
+      "left": 362.4,
+      "attrs": {}
+    },
+    {
+      "type": "board-esp32-devkit-c-v4",
+      "id": "esp",
+      "top": -38.4,
+      "left": 158.44,
+      "attrs": {}
+    },
     {
       "type": "wokwi-pushbutton",
       "id": "btn1",
@@ -36,13 +54,19 @@
       "left": 138.6,
       "attrs": { "label": "Sensor de umidade" }
     },
-    { "type": "wokwi-relay-module", "id": "relay1", "top": 192.2, "left": 412.8, "attrs": {} },
+    {
+      "type": "wokwi-relay-module",
+      "id": "relay1",
+      "top": 192.2,
+      "left": 412.8,
+      "attrs": { "label": "Bomba de irrigação" }
+    },
     {
       "type": "wokwi-led",
       "id": "led1",
       "top": 159.6,
       "left": 551,
-      "attrs": { "color": "green", "label": "Bomba Ligada" }
+      "attrs": { "color": "green", "label": "" }
     }
   ],
   "connections": [
