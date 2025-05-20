@@ -1,5 +1,4 @@
 #include <Wire.h>
-#include <Adafruit_MPU6050.h>
 #include <Adafruit_Sensor.h>
 #include <DHT.h>
 #include <Arduino.h>
@@ -9,13 +8,13 @@
 #define PIN_SENSOR_POTASSIO 18
 #define PIN_SENSOR_ANALOGICO_1 32
 #define PIN_SENSOR_ANALOGICO_2 33
+#define PIN_LDR 34
 #define PIN_DHT 35
 #define PIN_RELE 5
 
 #define DHTTYPE DHT22
 
 DHT dht(PIN_DHT, DHTTYPE);
-Adafruit_MPU6050 mpu;
 
 void setup() {
   Serial.begin(115200);
@@ -26,11 +25,14 @@ void setup() {
   digitalWrite(PIN_RELE, LOW); // Relé desligado inicialmente
 
   dht.begin();
+}
 
-  if (!mpu.begin()) {
-    Serial.println("Falha ao iniciar MPU6050!");
-    while (1);
-  }
+float simularPH(int valorLDR) {
+  // Considerando que valorLDR varia de 0 (muita luz) a 4095 (pouca luz)
+  // Vamos mapear para um pH entre 4.0 e 9.0 (faixa comum em solos)
+  float phMin = 4.0;
+  float phMax = 9.0;
+  return phMin + ((phMax - phMin) * (4095 - valorLDR) / 4095.0);
 }
 
 void loop() {
@@ -41,10 +43,11 @@ void loop() {
   // Leitura do sensor DHT22
   float umidade = dht.readHumidity();
 
-  // Leitura do sensor de pH (simulado via acelerômetro)
-  sensors_event_t a, g, temp;
-  mpu.getEvent(&a, &g, &temp);
-  float ph = a.acceleration.x; // Simulação: use um valor do acelerômetro
+  // Leitura do sensor LDR (fotoresistor)
+  int valorLDR = analogRead(PIN_LDR);
+
+  // Simulação do valor de pH baseado no LDR
+  float valorpH = simularPH(valorLDR);
 
   // Leitura dos sensores analógicos
   int valorSensor1 = analogRead(PIN_SENSOR_ANALOGICO_1);
@@ -53,8 +56,8 @@ void loop() {
   // Lógica de acionamento do relé
   bool ligarRele = false;
 
-  // Exemplo: liga o relé se algum botão for pressionado ou umidade < 40% ou sensor1 < 2000
-  if (fosforoPressionado || potassioPressionado || (umidade < 40 && !isnan(umidade)) || valorSensor1 < 2000) {
+  // Exemplo: liga o relé se algum botão for pressionado, umidade < 40% ou pouca luz (LDR < 2000)
+  if (fosforoPressionado || potassioPressionado || (umidade < 40 && !isnan(umidade)) || ( valorpH < 9 && valorpH > 4 )) {
     ligarRele = true;
   }
 
@@ -64,7 +67,7 @@ void loop() {
   Serial.print("Fósforo: "); Serial.print(fosforoPressionado);
   Serial.print(" | Potássio: "); Serial.print(potassioPressionado);
   Serial.print(" | Umidade: "); Serial.print(umidade);
-  Serial.print(" | pH (sim): "); Serial.print(ph);
+  Serial.print(" | pH (sim): "); Serial.print(valorpH);
   Serial.print(" | Sensor1: "); Serial.print(valorSensor1);
   Serial.print(" | Sensor2: "); Serial.print(valorSensor2);
   Serial.print(" | Relé: "); Serial.println(ligarRele ? "LIGADO" : "DESLIGADO");
