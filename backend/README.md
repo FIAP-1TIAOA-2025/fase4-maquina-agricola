@@ -40,7 +40,7 @@ python farmtech_main.py
 * Para encerrar, pressione **CTRL+C** no terminal.
 
 ---
-## Documentação
+## Resumo
 
 O armazenamento de dados enviados por um ESP32 (via simulação Wokwi ou hardware real) a um banco de dados relacional (SQLite), utilizando um modelo de entidade-relacionamento (MER) robusto e pronto para automação agrícola.
 
@@ -75,16 +75,6 @@ O armazenamento de dados enviados por um ESP32 (via simulação Wokwi ou hardwar
 ---
 
 
-
-## Funcionamento do Sistema
-
-* O ESP32 (real ou simulado via Wokwi) envia leituras dos sensores.
-* O script coletor grava as medições em tempo real na tabela `MedidaSolo` do SQLite.
-* O dashboard lê e exibe as últimas leituras, gráficos de umidade e pH, com atualização automática.
-* Todos os relacionamentos do MER são mantidos. Novas culturas, talhões ou sensores podem ser adicionados conforme o crescimento do sistema.
-
----
-
 ## Exemplo de Registro em `MedidaSolo`
 
 | id\_medida | data\_hora          | valor\_umidade | valor\_ph | valor\_npk           | id\_dispositivo | id\_talhao |
@@ -105,5 +95,5 @@ O armazenamento de dados enviados por um ESP32 (via simulação Wokwi ou hardwar
 ---
 
 **Author:** Mário (DevOps/SRE)
-**Version:** 1.13
+**Version:** 1.17
 **Date:** 2024-05-20

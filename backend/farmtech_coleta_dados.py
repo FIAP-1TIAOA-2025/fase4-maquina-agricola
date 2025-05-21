@@ -3,7 +3,7 @@
 """
 farm_integration_mer.py
 Author: Mário (DevOps/SRE) & ChatGPT
-Version: 1.3
+Version: 1.7
 Date: 2024-05-20
 
 Integração ESP32 (Wokwi ) com banco MER completo em SQLite.
@@ -148,11 +148,7 @@ def inserir_medida_solo(umidade, ph, fosforo, potassio, sensor1, sensor2,
     conn.close()
 
 def parse_serial_line(line):
-    """
-    Recebe linha no formato:
-    Fósforo: 1 | Potássio: 0 | Umidade: 37.2 | pH (sim): 6.32 | Sensor1: 1800 | Sensor2: 2500 | Relé: LIGADO
-    """
-    pattern = r"Fósforo:\s*(\d) \| Potássio:\s*(\d) \| Umidade:\s*([0-9.]+|nan) \| pH.*?:\s*([0-9.]+) \| Sensor1:\s*(\d+) \| Sensor2:\s*(\d+)"
+    pattern = r"Fósforo:\s*(\d)\s*\|\s*Potássio:\s*(\d)\s*\|\s*Umidade:\s*([0-9.]+)\s*\|\s*pH\s*\(sim\):\s*([0-9.]+)\s*\|\s*Relé:\s*(LIGADO|DESLIGADO)"
     m = re.match(pattern, line)
     if not m:
         return None
@@ -160,9 +156,27 @@ def parse_serial_line(line):
     potassio = bool(int(m.group(2)))
     umidade = float(m.group(3))
     ph = float(m.group(4))
-    sensor1 = int(m.group(5))
-    sensor2 = int(m.group(6))
-    return umidade, ph, fosforo, potassio, sensor1, sensor2
+    rele = True if m.group(5) == 'LIGADO' else False
+    # Pode retornar valores extras (None) para campos não presentes no print
+    # sensor1, sensor2, temperatura, etc. podem ser definidos como None aqui
+    return umidade, ph, fosforo, potassio, None, None  # sensor1, sensor2 = None
+
+#def parse_serial_line(line):
+#    """
+#    Recebe linha no formato:
+#    Fósforo: 1 | Potássio: 0 | Umidade: 37.2 | pH (sim): 6.32 | Sensor1: 1800 | Sensor2: 2500 | Relé: LIGADO
+#    """
+#    pattern = r"Fósforo:\s*(\d) \| Potássio:\s*(\d) \| Umidade:\s*([0-9.]+|nan) \| pH.*?:\s*([0-9.]+) \| Sensor1:\s*(\d+) \| Sensor2:\s*(\d+)"
+#    m = re.match(pattern, line)
+#    if not m:
+#        return None
+#    fosforo = bool(int(m.group(1)))
+#    potassio = bool(int(m.group(2)))
+#    umidade = float(m.group(3))
+#    ph = float(m.group(4))
+#    sensor1 = int(m.group(5))
+#    sensor2 = int(m.group(6))
+#    return umidade, ph, fosforo, potassio, sensor1, sensor2
 
 def main():
     inicializa_banco()
