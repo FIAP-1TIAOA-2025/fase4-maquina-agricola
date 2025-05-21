@@ -3,14 +3,17 @@
 """
 farm_integration_mer.py
 Author: Mário (DevOps/SRE) & ChatGPT
-Version: 1.0
+Version: 1.3
 Date: 2024-05-20
 
-Integração ESP32 (Wokwi ou real) com banco MER completo em SQLite.
+Integração ESP32 (Wokwi ) com banco MER completo em SQLite.
 - Cria tabelas se necessário
 - Garante integridade relacional
 - Insere dados do serial em MedidaSolo
 - Pronto para uso didático e produção simples
+
+Este código é parte do projeto FarmTech, um sistema de monitoramento e controle agrícola.
+MER original não foi modificado, apenas adaptado para SQLite.
 
 Licença: MIT
 """
