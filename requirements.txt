@@ -1,0 +1,5 @@
+platformio
+pyserial
+pandas
+dash
+plotly

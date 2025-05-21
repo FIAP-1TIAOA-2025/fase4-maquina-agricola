@@ -48,6 +48,9 @@ Fósforo: 0 | Potássio: 1 | Sensor1: 1800 | Sensor2: 2500 | Relé: LIGADO
 3. Abra o monitor serial para acompanhar o funcionamento.
 4. Pressione os botões ou altere os valores dos sensores para observar o acionamento do relé.
 
+### Iniciando Coleta de dados e apresentação
+
+[Instrucões para Coleta de dados](backend/README.md)
 ---
 
 **Observação:**  

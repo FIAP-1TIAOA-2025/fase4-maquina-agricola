@@ -1,3 +1,6 @@
 .pio
 .vscode/launch.json
 .vscode/c_cpp_properties.json
+.vscode/extensions.json
+.DS_Store
+farm_data.db
