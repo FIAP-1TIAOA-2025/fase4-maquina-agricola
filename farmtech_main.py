@@ -4,7 +4,7 @@
 farmtech_main.py
 Author: Mário (DevOps/SRE) & ChatGPT
 Version: 1.2
-Date: 2024-05-20
+Date: 2025-05-20
 
 Script principal para iniciar o coletor de dados (farmtech_coleta_dados.py)
 e o dashboard (farmtech_dashboard.py) simultaneamente.

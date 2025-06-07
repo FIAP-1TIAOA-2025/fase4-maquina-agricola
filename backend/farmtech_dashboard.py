@@ -4,7 +4,7 @@
 farmtech_dashboard.py
 Author: Mário (DevOps/SRE) & ChatGPT
 Version: 1.15
-Date: 2024-05-20
+Date: 2025-05-20
 
 Dashboard web com Dash para visualização dos dados da tabela MedidaSolo do banco farm_data.db.
 - Mostra tabela de leituras, incluindo fósforo, potássio e estado do relé
