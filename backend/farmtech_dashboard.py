@@ -32,6 +32,7 @@ DASH_PORT = 8050
 
 def load_medidas():
     """Carrega todas as medições da tabela MedidaSolo em um DataFrame e extrai Fósforo, Potássio e Relé."""
+
     conn = sqlite3.connect(DB_FILE)
     df = pd.read_sql_query("""
         SELECT m.id_medida, m.data_hora, m.valor_umidade, m.valor_ph, m.valor_npk,
@@ -43,6 +44,7 @@ def load_medidas():
         ORDER BY m.data_hora DESC
     """, conn)
     conn.close()
+
     # Extrai fósforo, potássio (0 ou 1) de valor_npk
     def extrai_npk(valor_npk, qual):
         if isinstance(valor_npk, str):
@@ -72,6 +74,7 @@ app.layout = html.Div([
         id='tabela-medidas',
         columns=[{"name": i, "id": i} for i in [
             "id_medida", "data_hora", "valor_umidade", "valor_ph", "valor_npk", "fosforo", "potassio", "rele_state", "talhao", "tipo_sensor"
+
         ]],
         page_size=10,
         style_table={'overflowX': 'auto'},
@@ -89,6 +92,7 @@ app.layout = html.Div([
                 "color": "#770000",
             },
         ],
+
     ),
     html.Br(),
     html.Div([
@@ -111,6 +115,7 @@ app.layout = html.Div([
         dcc.Graph(id='grafico-rele', config={"displayModeBar": False})
     ], style={"width": "80%", "margin": "auto"}),
     html.Footer("Autor: Mário (DevOps/SRE) | Versão 1.5 | 2024-05-20", style={"textAlign": "center", "marginTop": "30px"})
+
 ])
 
 @app.callback(
