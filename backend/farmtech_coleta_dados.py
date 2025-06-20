@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-farm_integration_mer.py
+farmtech_coleta_dados.py
 Author: Mário (DevOps/SRE) & ChatGPT
 Version: 1.7
 
@@ -23,13 +23,17 @@ import sqlite3
 from datetime import datetime
 import serial
 import re
+import os
+import joblib
+import pandas as pd
 
-DB_FILE = 'farm_data.db'
+DB_FILE = os.path.join(os.path.dirname(__file__), '../farm_data.db')
 # Para Wokwi RFC2217: 'rfc2217://localhost:8180'
 # Para hardware real (Linux): '/dev/ttyUSB0', '/dev/ttyACM0'
 # Para hardware real (Windows): 'COM3', 'COM4', etc.
-SERIAL_URL = 'rfc2217://localhost:8180'
+SERIAL_URL = 'rfc2217://localhost:8181'
 BAUDRATE = 115200
+MODEL_PATH = os.path.join(os.path.dirname(__file__), 'models/ml_irrigacao.pkl')
 
 def inicializa_banco():
     conn = sqlite3.connect(DB_FILE)
@@ -184,16 +188,43 @@ def main():
     insere_se_necessario()
     print(f"Conectando ao serial {SERIAL_URL} ...")
     ser = serial.serial_for_url(SERIAL_URL, baudrate=BAUDRATE, timeout=2)
+    model = joblib.load(MODEL_PATH)
     while True:
         try:
-            line = ser.readline().decode('utf-8').strip()
+            line = ser.readline().decode("utf-8").strip()
             if not line:
                 continue
             print("Recebido:", line)
             data = parse_serial_line(line)
             if data:
-                inserir_medida_solo(*data)
-                print(">> Medida inserida no banco.")
+                umidade, ph, fosforo, potassio, *_ = data
+                temperatura = None  # adapte se houver
+                inserir_medida_solo(
+                    umidade, ph, fosforo, potassio, None, None, temperatura=temperatura
+                )
+                # ==== INFERÊNCIA ML ====
+
+                #features = [
+                #    [umidade, ph, int(fosforo), int(potassio), temperatura or 0]
+                #]
+                #pred = int(model.predict(features)[0])
+
+                feature_names = ['valor_umidade', 'valor_ph', 'fosforo', 'potassio', 'temperatura']
+                features = pd.DataFrame([[umidade, ph, int(fosforo), int(potassio), temperatura or 0]], columns=feature_names)
+                pred = int(model.predict(features)[0])
+                
+                # Relaciona ao último id_medida
+                conn = sqlite3.connect(DB_FILE)
+                c = conn.cursor()
+                c.execute("SELECT last_insert_rowid()")
+                idm = c.fetchone()[0]
+                c.execute(
+                    "INSERT INTO AcaoAgricola (id_medida, recomendacao) VALUES (?, ?)",
+                    (idm, str(pred)),
+                )
+                conn.commit()
+                conn.close()
+                print(f">> Medida e recomendação ML ({pred}) inseridas.")
             else:
                 print(">> Linha não reconhecida/formato inválido.")
         except KeyboardInterrupt:

@@ -24,6 +24,8 @@ def start_script(script_name):
     return subprocess.Popen([sys.executable, script_path])
 
 if __name__ == "__main__":
+    print("Treinando ML com dados existentes no banco")
+    training_proc = start_script("train_model.py")
     print("Iniciando coleta de dados...")
     coleta_proc = start_script("farmtech_coleta_dados.py")
     # Espera 2 segundos para garantir que dados serão gravados antes do dashboard iniciar
@@ -34,8 +36,9 @@ if __name__ == "__main__":
 
     try:
         # Espera ambos os processos
-        coleta_proc.wait()
+        training_proc.wait()
         dash_proc.wait()
+        coleta_proc.wait()
     except KeyboardInterrupt:
         print("Encerrando scripts...")
         coleta_proc.terminate()

@@ -3,3 +3,6 @@ pyserial
 pandas
 dash
 plotly
+scikit-learn
+streamlit
+watchdog
