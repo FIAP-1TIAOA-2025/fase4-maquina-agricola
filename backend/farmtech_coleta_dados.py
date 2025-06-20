@@ -4,7 +4,8 @@
 farm_integration_mer.py
 Author: Mário (DevOps/SRE) & ChatGPT
 Version: 1.7
-Date: 2024-05-20
+
+Date: 2025-05-20
 
 Integração ESP32 (Wokwi ) com banco MER completo em SQLite.
 - Cria tabelas se necessário
