@@ -39,19 +39,32 @@ Fósforo: 0 | Potássio: 1 | Sensor1: 1800 | Sensor2: 2500 | Relé: LIGADO
 [Sensor Analógico 1] --- GPIO 34
 [Sensor Analógico 2] --- GPIO 15
 [Relé (Saída)] --- GPIO 5
+[LCD (Saída)] --- GPIO 21/22
 ```
+### Circuito Simulador
+
+![Sensor com LCD](imagem-circuito-fase4.png)
 
 ## Como usar
 
-1. Abra o terminal na pasta do projeto e rode `pio run`
+1. Abra o terminal na pasta do projeto e execute `make` para ativar o python virtual environment
+1. Execute `pio run` para executar o "build" do simulador
 2. Abra o projeto no Visual Studio Code, pressione **F1** e selecione "Wokwi: Start Simulator"..
 3. Abra o monitor serial para acompanhar o funcionamento.
 4. Pressione os botões ou altere os valores dos sensores para observar o acionamento do relé.
 
 ### Iniciando Coleta de dados e apresentação
 
-[Instrucões para Coleta de dados](backend/README.md)
----
+1. Na raiz do projeto execute: `./farmtech_main.py`
 
-**Observação:**  
-Os valores aceitáveis para o LDR representando o sensor de pH do solo estão entre 30 e 95. O valor da umidade deve ser menor de 40.0. Os botões devem ser pressionados por cerca de 1s para ligarem ou desligarem.
+Um menu será apresentado:
+
+![Instrucões para Coleta de dados](menu_principal.png)
+
+1. Treine o modelo com dados novos. O banco de dados já vem com 10 dias de dados treinados
+2. Inicia a coleta de dados em background. Lista o arquivo onde a saída do comando é gerada
+3. Para a coleta de dados, caso esteja em execução
+4. Mostra as ultimas linhas do arquivo com a saída da coleta de dados em tempo real
+5. Mostra os ultimos dados diretamente do serial do Sensor, caso esteja gerando dados
+6. Inicia o Dashboard com dados de previsão do modelo em tempo real
+7. Sair do applicativo 

@@ -12,7 +12,7 @@
 Para instalar todas as dependências:
 
 ```bash
-pip install platformio pyserial dash pandas plotly
+pip install platformio pyserial pandas dash plotly scikit-learn streamlit watchdog tqdm
 ```
 
 ou basta rodar make se tiver disponivel
@@ -32,17 +32,30 @@ Para iniciar o sistema integrado (coletor de dados + dashboard), **rode o script
 python farmtech_main.py
 ```
 
-* O script inicia automaticamente:
+* O script Apresnta um menu:
 
-  * A coleta de dados: `backend/farmtech_coleta_dados.py`
-  * O dashboard web: `backend/farmtech_dashboard.py`
-* O navegador padrão será aberto automaticamente no dashboard (`http://localhost:8050`).
-* Para encerrar, pressione **CTRL+C** no terminal.
+![Instrucões para Coleta de dados](../menu_principal.png)
+
+
+1. executa: `./backend/train_model.py`
+2. executa: `./backend/farmtech_coleta_dados.py`
+6. executa: `./backend/farmtech_streamlist.py`
+
+Estes scripts podem ser executados individualmente
+
+Extras:
+
+1. `./backend/simula_dados.py`: cria dados simulados diretamente na base de dados
+2. Para zerar a base, remova o arquivo form_data.db e execute `./backend/farmtech_coleta_dados.py`
+3. Apos zerar a base de coletar ou gerar novos dados simulados, execute  `./backend/train_model.py` para retreinar o modelo
+
+
 
 ---
 ## Resumo
 
 O armazenamento de dados enviados por um ESP32 (via simulação Wokwi ou hardware real) a um banco de dados relacional (SQLite), utilizando um modelo de entidade-relacionamento (MER) robusto e pronto para automação agrícola.
+Dados coletados no banco de dados são treinados no arquivo
 
 ### Principais Entidades e Relacionamentos
 
