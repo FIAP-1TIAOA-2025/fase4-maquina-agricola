@@ -95,5 +95,5 @@ O armazenamento de dados enviados por um ESP32 (via simulação Wokwi ou hardwar
 ---
 
 **Author:** Mário (DevOps/SRE)
-**Version:** 1.17
-**Date:** 2024-05-20
+**Version:** 1.20
+**Date:** 2025-05-20
