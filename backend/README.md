@@ -34,7 +34,7 @@ python farmtech_main.py
 
 * O script Apresnta um menu:
 
-![Instrucões para Coleta de dados](../menu_principal.png)
+![Instrucões para Coleta de dados](../img/menu_principal.png)
 
 
 1. executa: `./backend/train_model.py`

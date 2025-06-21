@@ -43,7 +43,7 @@ Fósforo: 0 | Potássio: 1 | Sensor1: 1800 | Sensor2: 2500 | Relé: LIGADO
 ```
 ### Circuito Simulador
 
-![Sensor com LCD](imagem-circuito-fase4.png)
+![Sensor com LCD](img/imagem-circuito-fase4.png)
 
 ## Como usar
 
@@ -59,7 +59,7 @@ Fósforo: 0 | Potássio: 1 | Sensor1: 1800 | Sensor2: 2500 | Relé: LIGADO
 
 Um menu será apresentado:
 
-![Instrucões para Coleta de dados](menu_principal.png)
+![Instrucões para Coleta de dados](img/menu_principal.png)
 
 1. Treine o modelo com dados novos. O banco de dados já vem com 10 dias de dados treinados
 2. Inicia a coleta de dados em background. Lista o arquivo onde a saída do comando é gerada
@@ -68,3 +68,6 @@ Um menu será apresentado:
 5. Mostra os ultimos dados diretamente do serial do Sensor, caso esteja gerando dados
 6. Inicia o Dashboard com dados de previsão do modelo em tempo real
 7. Sair do applicativo 
+
+#### Detalhes Coleta de dados
+[Informacoes Adicionais e detalhes](backend/README.md)
