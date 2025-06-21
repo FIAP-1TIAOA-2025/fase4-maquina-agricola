@@ -203,28 +203,26 @@ def main():
                     umidade, ph, fosforo, potassio, None, None, temperatura=temperatura
                 )
                 # ==== INFERÊNCIA ML ====
+                # Para desenvolvimento futuro quando o ML vai dizer quando irrigar
+                # Colocar em uma nova  tabela, não em AcaoAgricola
+                # Agora o modelo é muito analítico, é muito claro qunando irrigar
+                # So faz sentido inferencia se coletar mais dados de resultados da colheita com os dados dos sensores
 
-                #features = [
-                #    [umidade, ph, int(fosforo), int(potassio), temperatura or 0]
-                #]
+                #now = pd.to_datetime(datetime.now())
+                #features = pd.DataFrame([[umidade, ph, int(fosforo), int(potassio), temperatura or 0, now.hour, now.weekday()]],
+                #                        columns=['valor_umidade', 'valor_ph', 'fosforo', 'potassio', 'temperatura', 'hour', 'weekday'])
                 #pred = int(model.predict(features)[0])
+                #print(f"pred: {model.predict(features)}")
+                ## Registre a recomendação do modelo
+                #conn = sqlite3.connect(DB_FILE)
+                #c = conn.cursor()
+                #c.execute("SELECT last_insert_rowid()")
+                #idm = c.fetchone()[0]
+                #c.execute("INSERT INTO AcaoAgricola (id_medida, recomendacao) VALUES (?, ?)", (idm, str(pred)))
+                #conn.commit()
+                #conn.close()
+                #print(f">> Medida e recomendação ML ({pred}) inseridas.")
 
-                feature_names = ['valor_umidade', 'valor_ph', 'fosforo', 'potassio', 'temperatura']
-                features = pd.DataFrame([[umidade, ph, int(fosforo), int(potassio), temperatura or 0]], columns=feature_names)
-                pred = int(model.predict(features)[0])
-                
-                # Relaciona ao último id_medida
-                conn = sqlite3.connect(DB_FILE)
-                c = conn.cursor()
-                c.execute("SELECT last_insert_rowid()")
-                idm = c.fetchone()[0]
-                c.execute(
-                    "INSERT INTO AcaoAgricola (id_medida, recomendacao) VALUES (?, ?)",
-                    (idm, str(pred)),
-                )
-                conn.commit()
-                conn.close()
-                print(f">> Medida e recomendação ML ({pred}) inseridas.")
             else:
                 print(">> Linha não reconhecida/formato inválido.")
         except KeyboardInterrupt:
